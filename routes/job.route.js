@@ -9,7 +9,7 @@ const { JobModel } = require("../models/JobModel");
 
 
 jobRouter.get("/",async(req,res)=>{
-    const data=await JobModel.find()
+    const data=await JobModel.find().limit(10)
     res.send({"data":data,"msg":"hi"})
 })
 
