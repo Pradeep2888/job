@@ -17,7 +17,7 @@ jobRouter.get("/",async(req,res)=>{
         res.send({"data":data,"msg":"hi"})
     }
     else if(filter!=="" && Number(page)){
-        const data=await JobModel.find({"role":filter}).limit(10).skip(Number(page)*10)
+        const data=await JobModel.find({"role":filter}).limit(10).skip(Number(page)-1*10)
         console.log(data)
         res.send({"data":data,"msg":"hi"})
     }
