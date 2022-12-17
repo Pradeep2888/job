@@ -9,8 +9,23 @@ const { JobModel } = require("../models/JobModel");
 
 
 jobRouter.get("/",async(req,res)=>{
-    const data=await JobModel.find().limit(10)
-    res.send({"data":data,"msg":"hi"})
+    const {page,filter}=req.query
+    console.log(page)
+    if( filter==="" && Number(page)>1){
+        const data=await JobModel.find().limit(10).skip(Number(page)*10)
+        console.log(data)
+        res.send({"data":data,"msg":"hi"})
+    }
+    else if(filter!=="" && Number(page)){
+        const data=await JobModel.find({"role":filter}).limit(10).skip(Number(page)*10)
+        console.log(data)
+        res.send({"data":data,"msg":"hi"})
+    }
+    else{
+        const data=await JobModel.find().limit(10)
+        res.send({"data":data,"msg":"hi"})
+    }
+   
 })
 
 jobRouter.post("/addjob",async(req,res)=>{
